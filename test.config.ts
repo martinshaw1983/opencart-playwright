@@ -1,8 +1,8 @@
 export class TestConfig{
-appUrl="http://localhost/opencart/upload/"
+appUrl="https://tutorialsninja.com/demo/"
 
 //valid login credentials- create your own login account
-email="jeff@amazon.com"
+email="master@bates.com"
 password="Test@123"
 
 //product details
