@@ -1,3 +1,3 @@
 testName,email,password,expected
-Valid login,jeff@amazon.com,Test@123,success
+Valid login,master@bates.com,Test@123,success
 Inalid login,jeff.bezos@amazon.com,Test@1234,failure    
