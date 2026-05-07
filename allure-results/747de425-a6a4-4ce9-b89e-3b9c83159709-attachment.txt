@@ -1,6 +1,0 @@
-[
-  locator('h4>a').first(),
-  locator('h4>a').nth(1),
-  locator('h4>a').nth(2),
-  locator('h4>a').nth(3)
-]
