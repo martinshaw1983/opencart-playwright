@@ -1,1 +1,1 @@
-[{"data":{"run":4,"retry":14}}]
+[{"buildOrder":8,"reportUrl":"http://localhost:8080/job/opencart-local/8/allure","reportName":"AllureReport","data":{"run":6,"retry":17}},{"buildOrder":6,"reportUrl":"http://localhost:8080/job/opencart-local/6/allure","reportName":"AllureReport","data":{"run":6,"retry":11}}]
