@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "node clean-reports.js && npx playwright test",
-  "report:generate": "allure generate allure-results --clean -o allure-report",
-  "report:open": "allure open allure-report",
+    "report:generate": "allure generate allure-results --clean -o allure-report",
+    "report:open": "allure open allure-report",
     "test:master": "playwright test --grep @master",
     "test:sanity": "playwright test --grep @sanity",
     "test:regression": "playwright test --grep @regression",
@@ -21,7 +21,7 @@
     "@faker-js/faker": "^10.4.0",
     "@playwright/test": "^1.59.1",
     "@types/luxon": "^3.7.1",
-    "@types/node": "^25.6.0",
+    "@types/node": "^25.8.0",
     "allure-playwright": "^3.7.1",
     "dotenv": "^17.4.2"
   },

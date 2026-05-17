@@ -1,8 +1,8 @@
 export class TestConfig{
 appUrl="https://tutorialsninja.com/demo/"
 
-email=process.env.EMAIL
-password=process.env.PASSWORD
+email: process.env.EMAIL
+password: process.env.PASSWORD
 
 //product details
 productName="MacBook"
