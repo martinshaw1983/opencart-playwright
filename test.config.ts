@@ -1,9 +1,8 @@
 export class TestConfig{
 appUrl="https://tutorialsninja.com/demo/"
 
-//valid login credentials- create your own login account
-email="master@bates.com"
-password="Test@123"
+email=process.env.EMAIL
+password=process.env.PASSWORD
 
 //product details
 productName="MacBook"

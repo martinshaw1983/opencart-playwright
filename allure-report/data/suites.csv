@@ -1,7 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","6045","Login with valid credentials","chromium","2026-05-07","passed","2026-05-07","","login.spec.ts","",""
-"","6639","Register a new user","chromium","2026-05-07","passed","2026-05-07","","account-registration.spec.ts","",""
-"","7704","User Logout","chromium","2026-05-07","passed","2026-05-07","","logout.spec.ts","",""
-"","2474","Search for product that does not exist","chromium","2026-05-07","passed","2026-05-07","","search-products.spec.ts","",""
-"","3708","Search for product and select product","chromium","2026-05-07","passed","2026-05-07","","search-products.spec.ts","",""
-"","3357","Add product to cart","chromium","2026-05-07","passed","2026-05-07","","add-to-cart.spec.ts","",""
