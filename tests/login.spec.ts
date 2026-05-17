@@ -22,7 +22,7 @@ test('Login with valid credentials', {
 }, async () => {
     await loginPage.clickMyAccount();
     await loginPage.clickLogin();
-    await loginPage.performLogin(config.email, config.password)
+    await loginPage.performLogin(process.env.EMAIL, process.env.PASSWORD)
 
     //Verify succesful login by checking My Account presence
     await expect(myAccountPage.myAccountHeading).toBeVisible();
