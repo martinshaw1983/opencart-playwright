@@ -8,7 +8,8 @@ export default defineConfig({
   workers: 2,
 
   reporter: [
-    ['allure-playwright']
+     ['html'],
+    ['allure-playwright', { outputFolder: 'allure-results' }]
   ],
 
   use: {
