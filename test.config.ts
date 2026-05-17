@@ -1,5 +1,5 @@
 export class TestConfig{
-appUrl="https://tutorialsninja.com/demo/"
+appUrl=""
 
 email: process.env.EMAIL
 password: process.env.PASSWORD
