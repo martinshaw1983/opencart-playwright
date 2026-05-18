@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 export default defineConfig({
@@ -9,15 +10,16 @@ export default defineConfig({
   workers: 5,
 
   reporter: [
-    ['allure-playwright', { outputFolder: 'allure-results' }]
+    ['allure-playwright', {
+      outputFolder: 'allure-results'
+    }]
   ],
 
   use: {
     baseURL: process.env.BASE_URL,
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
-    //headless: false,
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
     permissions: ['geolocation']

@@ -1,15 +1,13 @@
 import { test, expect } from '@playwright/test';
 import { RegistrationPage } from '../pages/registration-page';
-import { TestConfig } from '../test.config';
 import { RandomUserGenerator } from '../utils/random-user-generator'
 
 let registrationPage: RegistrationPage;
-let config: TestConfig
 
 test.beforeEach(async ({ page }) => {
-    config = new TestConfig()
-    await page.goto(config.appUrl); //Navigate to the application URL
     registrationPage = new RegistrationPage(page);
+
+    await page.goto('');
 });
 
 test.afterEach(async ({ page }) => {
@@ -17,7 +15,7 @@ test.afterEach(async ({ page }) => {
 })
 
 test('Register a new user', {
-    tag: ['@master', '@sanity', '@regression']
+    tag: ['@regression']
 }, async () => {
     await registrationPage.clickMyAccount();
     await registrationPage.clickRegister();

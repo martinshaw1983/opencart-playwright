@@ -1,27 +1,25 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login-page';
 import { LogoutPage } from '../pages/logout-page'
-import { TestConfig } from '../test.config';
 
-let config: TestConfig
 let loginPage: LoginPage
 let logoutPage: LogoutPage
 
 test.beforeEach(async ({ page }) => {
-    config = new TestConfig(); // Load config (URL, credentials)
-
-    // Initalise page objects
     loginPage = new LoginPage(page);
     logoutPage = new LogoutPage(page);
 
-    await page.goto(config.appUrl); // Navigate to base URL
+    await page.goto('');
 });
 
-test('User Logout', { tag: ['@master', '@regression'] }, async ({ page }) => {
+test('User Logout', { tag: ['@regression'] }, async ({ page }) => {
     // loging can be set once using storage state to start each test logged in
+    const email = process.env.EMAIL || '';
+    const password = process.env.PASSWORD || ''
+
     await loginPage.clickMyAccount();
     await loginPage.clickLogin();
-    await loginPage.performLogin(config.email, config.password);
+    await loginPage.performLogin(email, password);
 
     // Logout steps
     await logoutPage.clickMyAccount();

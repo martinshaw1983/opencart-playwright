@@ -4,15 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node clean-reports.js && npx playwright test",
     "report:generate": "allure generate allure-results --clean -o allure-report",
     "report:open": "allure open allure-report",
-    "test:master": "playwright test --grep @master",
-    "test:sanity": "playwright test --grep @sanity",
-    "test:regression": "playwright test --grep @regression",
-    "test:datadriven": "playwright test --grep @datadriven",
-    "test:master:headed": "playwright test --grep @master --headed",
-    "test:sanity:debug": "playwright test --grep @sanity --debug"
+    "test": "node clean-reports.js && npx playwright test --grep @regression && npm run report:generate",
+    "test:smoke": "node clean-reports.js && npx playwright test --grep @smoke && npm run report:generate"
   },
   "keywords": [],
   "author": "",
