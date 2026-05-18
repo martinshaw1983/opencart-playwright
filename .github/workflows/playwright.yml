@@ -44,7 +44,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    - name: Run Smoke Tests (Push / PR)
+    - name: Run Smoke Tests (Push / PR / Manual)
       if: |
         github.event_name == 'push' || 
         github.event_name == 'pull_request' || 
