@@ -11,13 +11,13 @@ on:
   workflow_dispatch:
     inputs:
       test_type:
-        description: 'Select the test suite to run manually'
+        description: 'Select a test suite to run manually'
         required: true
-        default: 'regression'
+        default: 'Regression'
         type: choice
         options:
-          - smoke
-          - regression
+          - Smoke
+          - Regression
 
 jobs:
   test:
