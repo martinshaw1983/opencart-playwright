@@ -1,5 +1,5 @@
 name: Playwright Tests
-run-name: "${{ github.event_name == 'workflow_dispatch' && format('Manual Run: {0}', inputs.test_type) || github.event_name == 'schedule' && 'Nightly Regression Run' || format('Automated Smoke Run: {0}', github.event_name) }}"
+run-name: "${{ github.event_name == 'workflow_dispatch' && format('Manual: {0}', inputs.test_type) || github.event_name == 'schedule' && 'Nightly Regression Run' || format('Automated Smoke Test: {0}', github.event_name) }}"
 
 on:
   push:
