@@ -4,6 +4,10 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
 jobs:
   test:
     timeout-minutes: 60
@@ -25,13 +29,59 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    - name: Run Playwright tests
+    - name: Run Smoke Tests (Push / PR)
+      if: github.event_name == 'push' || github.event_name == 'pull_request'
       run: npm run test:smoke
+
+    - name: Run Full Regression Tests (Nightly / Manual)
+      if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+      run: npm test
     
-    - name: Upload Playwright HTML Report
+    - name: Checkout gh-pages
+      uses: actions/checkout@v4
       if: always()
-      uses: actions/upload-artifact@v4
+      continue-on-error: true
       with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+        ref: gh-pages
+        path: gh-pages-dir
+
+    - name: Allure Report Action
+      uses: mgrybyk-org/allure-report-branch-action@v1
+      if: always()
+      continue-on-error: true
+      id: allure
+      with:
+        report_id: 'self-test'
+        gh_pages: 'gh-pages-dir'
+        report_dir: 'allure-results'
+
+    - name: Git Commit and Push Action
+      uses: mgrybyk-org/git-commit-pull-push-action@v1
+      if: always()
+      with:
+        repository: gh-pages-dir
+        branch: gh-pages
+        pull_args: --rebase -X ours
+    
+    - name: Send Email Notification
+      uses: dawidd6/action-send-mail@v4
+      if: always()
+      with:
+        server_address: ${{ secrets.SMTP_SERVER }}
+        server_port: ${{ secrets.SMTP_PORT }}
+        username: ${{ secrets.SMTP_USERNAME }}
+        password: ${{ secrets.SMTP_PASSWORD }}
+        subject: 'Playwright API Test Run: ${{ job.status }}'
+        to: mr.mp.shaw.1983@gmail.com 
+        from: Playwright Automation Bot <mr.mp.shaw.1983@gmail.com>
+        secure: true
+        content_type: text/html
+        html_body: |
+          <p>Playwright opencart test suite execution completed with status: <strong>${{ job.status }}</strong></p>
+          
+          <p>You can view the full interactive dashboard here: 
+          <a href="${{ steps.allure.outputs.report_url }}">
+            View Allure Test Report
+          </a></p>
+          
+          <p>Triggered by event: <strong>${{ github.event_name }}</strong> by <strong>${{ github.actor }}</strong> on branch ${{ github.head_ref || github.ref_name }}.</p>
