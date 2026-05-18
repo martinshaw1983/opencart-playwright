@@ -7,6 +7,15 @@ on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
+    inputs:
+      test_type:
+        description: 'Select the test suite to run manually'
+        required: true
+        default: 'regression'
+        type: choice
+        options:
+          - smoke
+          - regression
 
 jobs:
   test:
@@ -30,11 +39,16 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run Smoke Tests (Push / PR)
-      if: github.event_name == 'push' || github.event_name == 'pull_request'
+      if: |
+        github.event_name == 'push' || 
+        github.event_name == 'pull_request' || 
+        (github.event_name == 'workflow_dispatch' && inputs.test_type == 'smoke')
       run: npm run test:smoke
 
     - name: Run Full Regression Tests (Nightly / Manual)
-      if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+      if: |
+        github.event_name == 'schedule' || 
+        (github.event_name == 'workflow_dispatch' && inputs.test_type == 'regression')
       run: npm test
     
     - name: Checkout gh-pages
