@@ -28,7 +28,7 @@ test.describe('Search Products - Positive', () => {
 test.describe('Search Products - Negative', () => {
 
     test('Search for product that does not exist', { tag: ['@smoke', '@regression'] }, async ({ page }) => {
-        const negativeSearchProducts = ['Eggs', 'Bananas', 'Bread'];
+        const negativeSearchProducts: string[] = ['Eggs', 'Bananas', 'Bread'];
         const randomNegativeSearchProduct = RandomProductGenerator.getRandomProduct(negativeSearchProducts)
 
         console.log(`Searching for ${randomNegativeSearchProduct}`);
