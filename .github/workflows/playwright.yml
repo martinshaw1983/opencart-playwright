@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: '15 2 * * *'
+    - cron: '42 6 * * *'
   workflow_dispatch:
     inputs:
       test_type:
