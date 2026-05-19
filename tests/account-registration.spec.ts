@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 import { RegistrationPage } from '../pages/registration-page';
 import { RandomUserGenerator } from '../utils/random-user-generator'
 
+test.use({ storageState: { cookies: [], origins: [] } });
+
 let registrationPage: RegistrationPage;
 
 test.beforeEach(async ({ page }) => {
