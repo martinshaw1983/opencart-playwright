@@ -2,8 +2,6 @@ import { test, expect } from '@playwright/test';
 import { RegistrationPage } from '../pages/registration-page';
 import { RandomUserGenerator } from '../utils/random-user-generator'
 
-test.use({ storageState: { cookies: [], origins: [] } });
-
 let registrationPage: RegistrationPage;
 
 test.beforeEach(async ({ page }) => {
@@ -16,9 +14,7 @@ test.afterEach(async ({ page }) => {
 
 })
 
-test('Register a new user', {
-    tag: ['@regression']
-}, async () => {
+test('Register a new user', { tag: ['@regression'] }, async () => {
     await registrationPage.clickMyAccount();
     await registrationPage.clickRegister();
 

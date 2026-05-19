@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/page-object-fixture';
 import { SearchResultsPage } from '../pages/search-results-page'
 
 let searchResultsPage: SearchResultsPage;

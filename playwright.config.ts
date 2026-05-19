@@ -7,7 +7,7 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  workers: process.env.CI ? 2 : undefined,
+  workers: process.env.CI ? 3 : undefined,
 
   reporter: [
     ['allure-playwright', {
@@ -32,7 +32,6 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'playwright/.auth/user.json',
       },
       dependencies: ['setup'],
     },
@@ -40,7 +39,6 @@ export default defineConfig({
       name: 'firefox',
       use: {
         ...devices['Desktop Firefox'],
-        storageState: 'playwright/.auth/user.json',
       },
       dependencies: ['setup'],
     },
@@ -49,7 +47,6 @@ export default defineConfig({
       name: 'WebKit',
       use: {
         ...devices['Desktop Safari'],
-        storageState: 'playwright/.auth/user.json',
       },
       dependencies: ['setup'],
     }

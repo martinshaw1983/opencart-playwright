@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: '42 6 * * *'
+    - cron: '45 6 * * *'
   workflow_dispatch:
     inputs:
       test_type:
@@ -25,8 +25,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BASE_URL: ${{ secrets.BASE_URL }}
-      EMAIL: ${{ secrets.EMAIL }}
-      PASSWORD: ${{ secrets.PASSWORD }}
+      USER_ONE_EMAIL: ${{ secrets.USER_ONE_EMAIL }}
+      USER_ONE_PASSWORD: ${{ secrets.USER_ONE_PASSWORD }}
+      USER_TWO_EMAIL: ${{ secrets.USER_TWO_EMAIL }}
+      USER_TWO_PASSWORD: ${{ secrets.USER_TWO_PASSWORD }}
+      USER_THREE_EMAIL: ${{ secrets.USER_THREE_EMAIL }}
+      USER_THREE_PASSWORD: ${{ secrets.USER_THREE_PASSWORD }}
 
     
     steps:

@@ -1,6 +1,6 @@
 # Restful-Booker API Automation Suite
 
-This repository contains an automated end-to-end user interface testing framework built to validate the functional workflows of the Opencart e-commerce platform.
+This repository contains an automated WIP UI testing framework built to validate the functional workflows of the Opencart e-commerce platform.
 
 ## Tech Stack & Tools
 

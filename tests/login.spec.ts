@@ -3,7 +3,6 @@ import { LoginPage } from '../pages/login-page';
 import { LogoutPage } from '../pages/logout-page';
 import { MyAccountPage } from '../pages/my-account-page';
 
-test.use({ storageState: { cookies: [], origins: [] } });
 
 let loginPage: LoginPage;
 let logoutPage: LogoutPage;
@@ -20,8 +19,8 @@ test.beforeEach(async ({ page }) => {
 
 test('Login and logout with valid credentials', { tag: ['@smoke', '@regression'] }, async ({ page }) => {
     //Login steps
-    const email = process.env.EMAIL || '';
-    const password = process.env.PASSWORD || '';
+    const email = process.env.USER_TWO_EMAIL || '';
+    const password = process.env.USER_TWO_PASSWORD || '';
 
     await loginPage.clickMyAccount();
     await loginPage.clickLogin();
