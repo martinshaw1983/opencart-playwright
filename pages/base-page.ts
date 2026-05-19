@@ -26,7 +26,6 @@ export class BasePage {
         this.btnProduct = page.locator('#content').getByText('MacBook');
         this.lnkViewCart = page.getByText('View Cart', { exact: true });
         this.cartTable = page.locator('.table-responsive');
-
     }
 
     // action methods
