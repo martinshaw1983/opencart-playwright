@@ -20,17 +20,23 @@ test.afterEach(async ({ page }) => {
     await shoppingCartPage.clearCartIfNotEmpty()
 });
 
-test('Cart - add and remove to product', { tag: ['@smoke', '@regression'] }, async () => {
+test('Cart - add and remove to product', { tag: ['@smoke', '@regression'] }, async ({ page }) => {
     const randomProduct = productData[Math.floor(Math.random() * productData.length)];
-    const randomQuantity = Math.floor((Math.random() * 3) + 1).toString();
-    
+    const randomQuantity: number = Math.floor((Math.random() * 3) + 1);
+    const randomQuantityString: string = randomQuantity.toString();
+
+
     console.log(`Adding ${randomQuantity} ${randomProduct.name} to cart`);
     await productPage.openProduct(randomProduct.name);
-    await productPage.addProductToCart(randomQuantity);
+    await productPage.addProductToCart(randomQuantityString);
     await productPage.openCart();
     await expect(productPage.cartTable.getByText(randomProduct.name)).toBeVisible();
-    //expect(await shoppingCartPage.getTotalPrice()).toBe(totalPrice);
 
-   // await shoppingCartPage.removeProductFromCart(randomProduct.name);
-    //await expect(productPage.cartTable.getByText(productName)).not.toBeVisible();
+    const exptectProductTotal: number = await shoppingCartPage.calcProductTotalPrice(randomProduct.name, randomQuantity);
+    console.log(exptectProductTotal);
+    const actualTotal: number = await shoppingCartPage.getPrice(randomProduct.name, 'Total');
+    expect(exptectProductTotal).toEqual(actualTotal);
+
+    await shoppingCartPage.removeProductFromCart(randomProduct.name);
+    await expect(productPage.cartTable.getByText(randomProduct.name)).not.toBeVisible();
 });

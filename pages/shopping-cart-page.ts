@@ -3,22 +3,41 @@ import { BasePage } from '../pages/base-page'
 
 export class ShoppingCartPage extends BasePage {
 
-    readonly lblTotalPrice: Locator;
     readonly btnCheckout: Locator;
     readonly cartItemsRows: Locator
 
     constructor(public readonly page: Page) {
         super(page)
 
-        this.lblTotalPrice = page.locator('table.table-bordered').locator('tr', { hasText: 'Total:' }).locator('td').last();
         this.btnCheckout = page.locator("a[class='btn btn-primary']");
         this.cartItemsRows = page.locator('.table-responsive tbody tr');
     }
 
-    
-    
-    async getTotalPrice() {
-        return (await this.lblTotalPrice.textContent()).toString().split(1);
+    async getCartColumnIndexByHeader(headerName: string): Promise<number> {
+        const allHeaders = await this.page.locator('.table-responsive table thead tr td').allTextContents();
+        const trimHeaders = allHeaders.map(text => text.trim());
+        return trimHeaders.indexOf(headerName);
+    }
+
+    async filterCartProducts(productName: string) {
+        return this.cartItemsRows.filter({ hasText: productName });
+    }
+
+    async getPriceFromText(locator: Locator): Promise<number> {
+        const price = await locator.textContent();
+        const totalPrice = price?.replace(/[^0-9.]/g, '') || '0';
+        return parseFloat(totalPrice);
+    }
+
+    async getPrice(productName: string, header: string): Promise<number> {
+        const columnHeaderIndex = await this.getCartColumnIndexByHeader(header);
+        const row = await this.filterCartProducts(productName);
+        return await this.getPriceFromText(row.locator('> td').nth(columnHeaderIndex));
+    }
+
+    async calcProductTotalPrice(productName: string, quantity: number) {
+        const unitPrice = await this.getPrice(productName, 'Unit Price');
+        return unitPrice * quantity
     }
 
     async clickOnCheckout() {
@@ -26,7 +45,7 @@ export class ShoppingCartPage extends BasePage {
     }
 
     async removeProductFromCart(productName: string) {
-        const productRow = this.cartItemsRows.filter({ hasText: productName })
+        const productRow = await this.filterCartProducts(productName);
         await productRow.locator('button[data-original-title="Remove"]').click();
     }
 
