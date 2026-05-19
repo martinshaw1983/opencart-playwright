@@ -10,7 +10,6 @@ export class BasePage {
     readonly txtSeachBox: Locator
     readonly btnSearch: Locator
     readonly btnItems: Locator;
-    readonly btnProduct: Locator;
     readonly lnkViewCart: Locator;
     readonly cartTable: Locator;
 
@@ -23,7 +22,6 @@ export class BasePage {
         this.txtSeachBox = page.getByRole('textbox', { name: 'Search' });
         this.btnSearch = page.locator('#search').getByRole('button');
         this.btnItems = page.locator('#cart');
-        this.btnProduct = page.locator('#content').getByText('MacBook');
         this.lnkViewCart = page.getByText('View Cart', { exact: true });
         this.cartTable = page.locator('.table-responsive');
     }
@@ -61,8 +59,8 @@ export class BasePage {
     }
 
     // open product
-    async openProduct() {
-        await this.btnProduct.click();
+    async openProduct(productName: string) {
+        await this.page.locator('#content').getByText(productName, { exact: true }).click();
     }
 
     // click view cart

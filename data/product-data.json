@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "Name": "MacBook",
+    "name": "MacBook",
     "price": "$602.00",
     "exTax": "$500.00"
   },
@@ -10,17 +10,5 @@
     "name": "iPhone",
     "price": "$123.20",
     "exTax": "$101.00"
-  },
-  {
-    "id": 3,
-    "name": "Apple Cinema 30\"",
-    "price": "$110.00",
-    "exTax": "$90.00"
-  },
-  {
-    "id": 4,
-    "name": "Canon EOS 5D",
-    "price": "$98.00",
-    "exTax": "$80.00"
   }
 ]
