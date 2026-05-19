@@ -1,12 +1,11 @@
 import { test, expect } from '../fixtures/page-object-fixture';
 import { ProductPage } from '../pages/product-page'
 import { ShoppingCartPage } from '../pages/shopping-cart-page'
-import productData from '../data/product-data.json';
+import { RandomProductGenerator } from '../utils/random-product-generator'
+import productData from '../data/product-data.json'
 
 let productPage: ProductPage;
 let shoppingCartPage: ShoppingCartPage;
-
-test.describe.configure({ mode: 'serial' });
 
 
 test.beforeEach(async ({ page }) => {
@@ -21,19 +20,16 @@ test.afterEach(async ({ page }) => {
 });
 
 test('Cart - add and remove to product', { tag: ['@smoke', '@regression'] }, async ({ page }) => {
-    const randomProduct = productData[Math.floor(Math.random() * productData.length)];
-    const randomQuantity: number = Math.floor((Math.random() * 3) + 1);
-    const randomQuantityString: string = randomQuantity.toString();
+    const randomProduct = RandomProductGenerator.getRandomProduct(productData);
+    const randomQuantity = RandomProductGenerator.getRandomQuantity();
 
-
-    console.log(`Adding ${randomQuantity} ${randomProduct.name} to cart`);
+    console.log(`Adding ${randomProduct.name} x ${randomQuantity} to cart`);
     await productPage.openProduct(randomProduct.name);
-    await productPage.addProductToCart(randomQuantityString);
+    await productPage.addProductToCart(randomQuantity.toString());
     await productPage.openCart();
     await expect(productPage.cartTable.getByText(randomProduct.name)).toBeVisible();
 
     const exptectProductTotal: number = await shoppingCartPage.calcProductTotalPrice(randomProduct.name, randomQuantity);
-    console.log(exptectProductTotal);
     const actualTotal: number = await shoppingCartPage.getPrice(randomProduct.name, 'Total');
     expect(exptectProductTotal).toEqual(actualTotal);
 
