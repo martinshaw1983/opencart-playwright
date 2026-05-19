@@ -2,13 +2,13 @@
   {
     "id": 1,
     "name": "MacBook",
-    "price": "$602.00",
-    "exTax": "$500.00"
+    "price": 602.00,
+    "exTax": 500.00
   },
   {
     "id": 2,
     "name": "iPhone",
-    "price": "$123.20",
-    "exTax": "$101.00"
+    "price": 123.20,
+    "exTax": 101.00
   }
 ]

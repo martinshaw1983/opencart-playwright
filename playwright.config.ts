@@ -7,7 +7,7 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  workers: process.env.CI ? 3 : 3,
+  workers: process.env.CI ? 3 : undefined,
 
   reporter: [
     ['allure-playwright', {

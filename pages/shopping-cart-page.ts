@@ -15,8 +15,10 @@ export class ShoppingCartPage extends BasePage {
         this.cartItemsRows = page.locator('.table-responsive tbody tr');
     }
 
+    
+    
     async getTotalPrice() {
-        return await this.lblTotalPrice.textContent();
+        return (await this.lblTotalPrice.textContent()).toString().split(1);
     }
 
     async clickOnCheckout() {
