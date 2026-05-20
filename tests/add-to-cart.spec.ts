@@ -13,11 +13,11 @@ test.beforeEach(async ({ page }) => {
     shoppingCartPage = new ShoppingCartPage(page);
 
     await page.goto('');
-    await shoppingCartPage.enureEmptyCart();
+    await shoppingCartPage.ensureEmptyCart();
 });
 
 test.afterEach(async ({ page }) => {
-    await shoppingCartPage.enureEmptyCart();
+    await shoppingCartPage.ensureEmptyCart();
 });
 
 test('Cart - add and remove to product', { tag: ['@smoke', '@regression'] }, async ({ }) => {
