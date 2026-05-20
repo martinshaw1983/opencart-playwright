@@ -5,12 +5,18 @@ export class ShoppingCartPage extends BasePage {
 
     readonly btnCheckout: Locator;
     readonly cartItemsRows: Locator
+    readonly cartTable: Locator;
+    readonly cartTotal: Locator;
+    readonly hdShoppingCart: Locator;
 
     constructor(public readonly page: Page) {
         super(page)
 
         this.btnCheckout = page.locator("a[class='btn btn-primary']");
         this.cartItemsRows = page.locator('.table-responsive tbody tr');
+           this.cartTable = page.locator('.table-responsive');
+        this.cartTotal = page.locator('#cart-total');
+        this.hdShoppingCart = page.getByRole('heading', { name: /Shopping Cart/i });
     }
 
     async getCartColumnIndexByHeader(headerName: string): Promise<number> {
@@ -50,8 +56,9 @@ export class ShoppingCartPage extends BasePage {
     }
 
     async clearCartIfNotEmpty() {
-        if (await this.cartItemsRows.count() > 0) {
+        while (await this.cartItemsRows.count() > 0) {
             await this.cartItemsRows.first().locator('button[data-original-title="Remove"]').click();
+            await this.page.waitForLoadState('networkidle');
         }
     }
 }

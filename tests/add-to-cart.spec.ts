@@ -12,27 +12,36 @@ test.beforeEach(async ({ page }) => {
     productPage = new ProductPage(page);
     shoppingCartPage = new ShoppingCartPage(page);
 
-    await page.goto('')
+    await page.goto('');
 });
 
 test.afterEach(async ({ page }) => {
-    await shoppingCartPage.clearCartIfNotEmpty()
+    shoppingCartPage = new ShoppingCartPage(page);
+
+    if(!(await shoppingCartPage.cartTotal.innerText()).includes('0 item(s)')) {
+        console.log('Teardown: Removing leftover items in cart');
+        await page.goto('/index.php?route=checkout/cart');
+        await shoppingCartPage.clearCartIfNotEmpty();
+    }
 });
 
-test('Cart - add and remove to product', { tag: ['@smoke', '@regression'] }, async ({ page }) => {
+test('Cart - add and remove to product', { tag: ['@smoke', '@regression'] }, async ({ }) => {
     const randomProduct = RandomProductGenerator.getRandomProduct(productData);
     const randomQuantity = RandomProductGenerator.getRandomQuantity();
 
     console.log(`Adding ${randomProduct.name} x ${randomQuantity} to cart`);
     await productPage.openProduct(randomProduct.name);
+    expect(await productPage.getProductTitle(randomProduct.name)).toBeVisible();
+
     await productPage.addProductToCart(randomQuantity.toString());
     await productPage.openCart();
-    await expect(productPage.cartTable.getByText(randomProduct.name)).toBeVisible();
+    await expect(shoppingCartPage.hdShoppingCart).toBeVisible();
+    await expect(shoppingCartPage.cartTable.getByText(randomProduct.name)).toBeVisible();
 
     const exptectProductTotal: number = await shoppingCartPage.calcProductTotalPrice(randomProduct.name, randomQuantity);
     const actualTotal: number = await shoppingCartPage.getPrice(randomProduct.name, 'Total');
     expect(exptectProductTotal).toEqual(actualTotal);
 
     await shoppingCartPage.removeProductFromCart(randomProduct.name);
-    await expect(productPage.cartTable.getByText(randomProduct.name)).not.toBeVisible();
+    await expect(shoppingCartPage.cartTable.getByText(randomProduct.name)).not.toBeVisible();
 });
