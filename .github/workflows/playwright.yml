@@ -6,8 +6,8 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-  schedule:
-    - cron: '45 6 * * *'
+  # schedule:
+  #  - cron: '45 1 * * *'
   workflow_dispatch:
     inputs:
       test_type:
