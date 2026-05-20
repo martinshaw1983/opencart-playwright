@@ -1,0 +1,2 @@
+Adding MacBook x 2 to cart
+Teardown: Removing leftover items in cart
