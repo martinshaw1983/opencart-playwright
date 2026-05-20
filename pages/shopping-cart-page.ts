@@ -65,7 +65,7 @@ export class ShoppingCartPage extends BasePage {
     async enureEmptyCart() {
                if(!(await this.cartTotal.innerText()).includes('0 item(s)')) {
                 console.log('Teardown: Removing leftover items in cart');
-                await this.page.goto('/index.php?route=checkout/cart');
+                await this.page.goto('index.php?route=checkout/cart');
                 await this.clearCartIfNotEmpty();
                 await this.page.goto('');
             }
