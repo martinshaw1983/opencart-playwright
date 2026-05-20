@@ -13,16 +13,11 @@ test.beforeEach(async ({ page }) => {
     shoppingCartPage = new ShoppingCartPage(page);
 
     await page.goto('');
+    await shoppingCartPage.enureEmptyCart();
 });
 
 test.afterEach(async ({ page }) => {
-    shoppingCartPage = new ShoppingCartPage(page);
-
-    if(!(await shoppingCartPage.cartTotal.innerText()).includes('0 item(s)')) {
-        console.log('Teardown: Removing leftover items in cart');
-        await page.goto('/index.php?route=checkout/cart');
-        await shoppingCartPage.clearCartIfNotEmpty();
-    }
+    await shoppingCartPage.enureEmptyCart();
 });
 
 test('Cart - add and remove to product', { tag: ['@smoke', '@regression'] }, async ({ }) => {
