@@ -11,7 +11,7 @@ export class BasePage {
     readonly btnSearch: Locator
     readonly btnItems: Locator;
     readonly lnkViewCart: Locator;
-    readonly cartTable: Locator;
+   
 
     // constructor
     constructor(public readonly page: Page) {
@@ -23,7 +23,6 @@ export class BasePage {
         this.btnSearch = page.locator('#search').getByRole('button');
         this.btnItems = page.locator('#cart');
         this.lnkViewCart = page.getByText('View Cart', { exact: true });
-        this.cartTable = page.locator('.table-responsive');
     }
 
     // action methods
